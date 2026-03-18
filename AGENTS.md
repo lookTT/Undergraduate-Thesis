@@ -1,65 +1,53 @@
 # AGENTS.md
 
-This repository contains a university thesis project and its implementation.
-Codex should treat the thesis documentation and the application code as one
-cohesive deliverable.
+本仓库是一个大学毕业论文项目及其对应实现。Codex 需要把论文文档和应用代码视为同一个交付物来处理。
 
-## Project Layout
+## 项目结构
 
-- `backend/`: Spring Boot 3 backend, Java 21, MyBatis-Plus, Spring Security, JWT.
-- `frontend/`: Vue 3 + Vite + TypeScript + Element Plus frontend.
-- `docs/`: thesis notes, school requirements, planning docs, and chapter drafts.
-- `docs/学校要求/`: school-provided requirements and templates. Do not move or rename
-  these files.
+- `backend/`：后端，技术栈为 Spring Boot 3、Java 21、MyBatis-Plus、Spring Security、JWT。
+- `frontend/`：前端，技术栈为 Vue 3、Vite、TypeScript、Element Plus。
+- `docs/`：论文笔记、学校要求、规划文档和章节草稿。
+- `docs/学校要求/`：学校提供的要求和模板。不要移动、重命名这些文件。
 
-## Working Rules
+## 工作规则
 
-- Keep changes consistent with the thesis topic and the school requirements.
-- Do not delete, rename, or relocate user-provided documents unless explicitly asked.
-- Prefer small, scoped changes that can be verified quickly.
-- Use `apply_patch` for manual edits.
-- Do not use destructive git commands such as `git reset --hard` or
-  `git checkout --` unless explicitly requested.
-- Do not overwrite or revert user changes that are unrelated to the task.
+- 所有改动都要与论文题目和学校要求保持一致。
+- 未经明确要求，不要删除、重命名或移动用户提供的文档。
+- 优先做小范围、可快速验证的改动。
+- 手工编辑文件时使用 `apply_patch`。
+- 未经明确要求，不要使用 `git reset --hard`、`git checkout --` 之类的破坏性命令。
+- 不要覆盖或回滚与当前任务无关的用户改动。
 
-## Thesis Documentation Rules
+## 论文文档规则
 
-- If the project scope changes, update the planning document:
-  `docs/论文规划与技术方案.md`.
-- Keep chapter drafts, references, and the implementation in sync.
-- When adding thesis content, check that chapter names, terminology, and
-  feature descriptions match the actual code.
-- Keep the school requirements in `docs/学校要求/` as the source of truth.
-- Preserve the existing document locations under `docs/`.
+- 如果项目范围发生变化，要同步更新规划文档：
+  `docs/论文规划与技术方案.md`。
+- 保持章节草稿、参考文献和代码实现一致。
+- 新增论文内容时，要检查章节名称、术语和功能描述是否与实际代码一致。
+- 以 `docs/学校要求/` 中的学校要求为准。
+- 保留 `docs/` 下现有文档位置，不要随意调整目录结构。
 
-## Backend Rules
+## 后端规则
 
-- Target Java 21 and Spring Boot 3.
-- Prefer straightforward, readable service and controller code.
-- Keep authentication and authorization aligned with the minimal JWT-based
-  security design already in the project.
-- Run backend verification after meaningful backend changes, typically with:
-  `mvn test`
+- 目标版本为 Java 21 和 Spring Boot 3。
+- 服务层和控制器代码尽量直白、可读。
+- 认证与授权保持当前项目里的最小可用 JWT 方案一致。
+- 后端有明显改动后，通常要运行 `mvn test` 做验证。
 
-## Frontend Rules
+## 前端规则
 
-- Use Vue 3, Vite, TypeScript, Pinia, Vue Router, and Element Plus.
-- Keep the UI practical and readable; this is a graduation project, not a
-  showcase site.
-- Run frontend verification after meaningful frontend changes, typically with:
-  `npm run build`
+- 使用 Vue 3、Vite、TypeScript、Pinia、Vue Router 和 Element Plus。
+- 界面以实用、清晰为主，这是毕业设计，不是展示型作品。
+- 前端有明显改动后，通常要运行 `npm run build` 做验证。
 
-## Git Rules
+## Git 规则
 
-- Commit coherent units of work.
-- Use clear commit messages that describe the actual change.
-- Keep the working tree clean after a finished task whenever possible.
+- 按完整、连贯的工作单元提交。
+- 提交信息要清楚描述实际改动。
+- 每次任务完成后尽量保持工作区干净。
 
-## Output Expectations
+## 输出要求
 
-- When you change files, summarize the outcome briefly and mention the affected
-  paths.
-- When you inspect code or documents, prefer exact file references over vague
-  descriptions.
-- If something is incomplete or blocked, state that clearly and do not pretend
-  it is finished.
+- 修改文件时，简要说明结果，并指出受影响路径。
+- 查看代码或文档时，优先使用准确的文件引用，不要用模糊描述。
+- 如果内容未完成或被阻塞，要明确说明，不要假装已经完成。
