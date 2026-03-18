@@ -47,3 +47,50 @@ export function deleteActivity(id: number) {
 export function publishActivity(id: number) {
   return http.put<ApiResponse<null>>(`/activities/${id}/publish`)
 }
+
+export interface ActivitySignupVO {
+  id: number
+  activityId: number
+  volunteerId: number
+  applyTime: string
+  auditStatus: number
+  auditTime: string | null
+  auditRemark: string | null
+}
+
+export interface ActivityCheckinVO {
+  id: number
+  activityId: number
+  volunteerId: number
+  checkinTime: string
+  checkinStatus: number
+  checkinNote: string | null
+}
+
+export function signupActivity(id: number) {
+  return http.post<ApiResponse<null>>(`/activities/${id}/signup`)
+}
+
+export function checkinActivity(id: number) {
+  return http.post<ApiResponse<null>>(`/activities/${id}/checkin`)
+}
+
+export function getActivitySignups(id: number, pageNum = 1, pageSize = 10) {
+  return http.get<ApiResponse<PageVO<ActivitySignupVO>>>(`/activities/${id}/signups`, {
+    params: { pageNum, pageSize }
+  })
+}
+
+export function approveSignup(id: number) {
+  return http.put<ApiResponse<null>>(`/signups/${id}/approve`)
+}
+
+export function rejectSignup(id: number) {
+  return http.put<ApiResponse<null>>(`/signups/${id}/reject`)
+}
+
+export function getActivityCheckins(id: number, pageNum = 1, pageSize = 10) {
+  return http.get<ApiResponse<PageVO<ActivityCheckinVO>>>(`/activities/${id}/checkins`, {
+    params: { pageNum, pageSize }
+  })
+}
