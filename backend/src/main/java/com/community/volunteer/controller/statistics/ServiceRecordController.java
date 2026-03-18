@@ -4,6 +4,7 @@ import com.community.volunteer.common.ApiResponse;
 import com.community.volunteer.service.ServiceRecordService;
 import com.community.volunteer.vo.common.PageVO;
 import com.community.volunteer.vo.statistics.ServiceRecordVO;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -19,6 +20,7 @@ public class ServiceRecordController {
         this.serviceRecordService = serviceRecordService;
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping
     public ApiResponse<PageVO<ServiceRecordVO>> page(@RequestParam(defaultValue = "1") long pageNum,
                                                      @RequestParam(defaultValue = "10") long pageSize) {

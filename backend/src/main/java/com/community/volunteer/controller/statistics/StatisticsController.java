@@ -7,6 +7,7 @@ import com.community.volunteer.service.ActivitySignupService;
 import com.community.volunteer.service.ServiceRecordService;
 import com.community.volunteer.service.VolunteerProfileService;
 import com.community.volunteer.vo.statistics.StatisticSummaryVO;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -30,6 +31,7 @@ public class StatisticsController {
         this.serviceRecordService = serviceRecordService;
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/summary")
     public ApiResponse<StatisticSummaryVO> summary() {
         long volunteerCount = volunteerProfileService.count();

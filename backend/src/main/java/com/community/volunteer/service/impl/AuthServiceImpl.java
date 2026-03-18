@@ -10,6 +10,7 @@ import com.community.volunteer.entity.UserRole;
 import com.community.volunteer.mapper.RoleMapper;
 import com.community.volunteer.mapper.UserMapper;
 import com.community.volunteer.mapper.UserRoleMapper;
+import com.community.volunteer.security.JwtPrincipal;
 import com.community.volunteer.security.JwtTokenService;
 import com.community.volunteer.service.AuthService;
 import com.community.volunteer.service.UserService;
@@ -80,8 +81,8 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    public UserVO currentUser(String token) {
-        Long userId = jwtTokenService.getUserId(token);
+    public UserVO currentUser(JwtPrincipal principal) {
+        Long userId = principal.userId();
         User user = userMapper.selectById(userId);
         if (user == null) {
             throw new BusinessException(ResultCode.NOT_FOUND, "用户不存在");

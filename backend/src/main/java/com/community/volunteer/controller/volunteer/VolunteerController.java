@@ -6,6 +6,7 @@ import com.community.volunteer.service.VolunteerProfileService;
 import com.community.volunteer.vo.common.PageVO;
 import com.community.volunteer.vo.volunteer.VolunteerVO;
 import jakarta.validation.Valid;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,29 +27,34 @@ public class VolunteerController {
         this.volunteerProfileService = volunteerProfileService;
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping
     public ApiResponse<PageVO<VolunteerVO>> page(@RequestParam(defaultValue = "1") long pageNum,
                                                  @RequestParam(defaultValue = "10") long pageSize) {
         return ApiResponse.success(volunteerProfileService.pageVolunteer(pageNum, pageSize));
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/{id}")
     public ApiResponse<VolunteerVO> detail(@PathVariable Long id) {
         return ApiResponse.success(volunteerProfileService.getVolunteerById(id));
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping
     public ApiResponse<Void> create(@Valid @RequestBody VolunteerSaveRequest request) {
         volunteerProfileService.saveVolunteer(request);
         return ApiResponse.success(null);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/{id}")
     public ApiResponse<Void> update(@PathVariable Long id, @Valid @RequestBody VolunteerSaveRequest request) {
         volunteerProfileService.updateVolunteer(id, request);
         return ApiResponse.success(null);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/{id}")
     public ApiResponse<Void> delete(@PathVariable Long id) {
         volunteerProfileService.deleteVolunteer(id);
