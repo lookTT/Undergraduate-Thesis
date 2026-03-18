@@ -54,6 +54,14 @@ a {
   margin-bottom: 20px;
 }
 
+.page-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
 .eyebrow {
   margin: 0 0 8px;
   color: var(--primary);
@@ -167,6 +175,10 @@ a {
 
 .muted {
   color: var(--muted);
+}
+
+.w-full {
+  width: 100%;
 }
 
 .login-page {
