@@ -19,6 +19,7 @@ export interface UserResponse {
   realName: string
   phone: string
   status: number
+  roles?: string[]
 }
 
 export function login(data: LoginRequest) {

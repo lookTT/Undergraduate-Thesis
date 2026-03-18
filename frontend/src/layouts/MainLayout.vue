@@ -10,7 +10,7 @@
       </div>
       <el-menu :default-active="route.path" class="menu" router>
         <el-menu-item index="/">仪表盘</el-menu-item>
-        <el-menu-item index="/volunteers">志愿者</el-menu-item>
+        <el-menu-item v-if="auth.hasRole('ADMIN')" index="/volunteers">志愿者</el-menu-item>
         <el-menu-item index="/activities">活动</el-menu-item>
       </el-menu>
     </aside>

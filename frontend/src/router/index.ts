@@ -39,6 +39,12 @@ router.beforeEach((to) => {
   if (!auth.token) {
     return '/login'
   }
+  if (!auth.user) {
+    return auth.hydrateSession().then(() => {
+      if (!auth.token) return '/login'
+      return true
+    })
+  }
   return true
 })
 
