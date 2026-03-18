@@ -17,12 +17,12 @@ logs/
 __pycache__/
 *.py[cod]
 *.egg-info/
-.venv/
-venv/
-env/
 .pytest_cache/
 .mypy_cache/
 .ruff_cache/
+.venv/
+venv/
+env/
 
 # Node / frontend
 node_modules/
@@ -32,6 +32,10 @@ coverage/
 .next/
 .nuxt/
 .svelte-kit/
+
+# Java / Maven
+target/
+*.class
 
 # Temporary and backup files
 ~$*.docx
