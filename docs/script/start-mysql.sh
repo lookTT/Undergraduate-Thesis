@@ -4,7 +4,7 @@ set -euo pipefail
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 ROOT_DIR="$(cd "$SCRIPT_DIR/../.." && pwd)"
 
-docker rm -f volunteer-mysql >/dev/null 2>&1 || true
+docker rm -f -v volunteer-mysql >/dev/null 2>&1 || true
 
 docker run -d \
   --name volunteer-mysql \
