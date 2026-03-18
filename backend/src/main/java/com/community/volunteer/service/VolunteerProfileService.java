@@ -11,6 +11,8 @@ public interface VolunteerProfileService extends IService<com.community.voluntee
 
     VolunteerVO getVolunteerById(Long id);
 
+    Long findVolunteerIdByUserId(Long userId);
+
     void saveVolunteer(VolunteerSaveRequest request);
 
     void updateVolunteer(Long id, VolunteerSaveRequest request);

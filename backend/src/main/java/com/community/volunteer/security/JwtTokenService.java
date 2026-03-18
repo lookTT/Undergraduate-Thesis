@@ -50,6 +50,35 @@ public class JwtTokenService {
                 .getPayload();
     }
 
+    public Long getUserId(String authorizationHeader) {
+        String token = cleanAuthorizationHeader(authorizationHeader);
+        Number userId = parseToken(token).get("userId", Number.class);
+        if (userId == null) {
+            throw new BusinessException(ResultCode.UNAUTHORIZED, "令牌无效");
+        }
+        return userId.longValue();
+    }
+
+    public String getRole(String authorizationHeader) {
+        String token = cleanAuthorizationHeader(authorizationHeader);
+        String role = parseToken(token).get("role", String.class);
+        if (role == null || role.isBlank()) {
+            throw new BusinessException(ResultCode.UNAUTHORIZED, "令牌无效");
+        }
+        return role;
+    }
+
+    private String cleanAuthorizationHeader(String authorizationHeader) {
+        if (authorizationHeader == null || authorizationHeader.isBlank()) {
+            throw new BusinessException(ResultCode.UNAUTHORIZED, "未携带令牌");
+        }
+        String rawToken = authorizationHeader.replaceFirst("(?i)^Bearer\\s+", "").trim();
+        if (rawToken.isBlank()) {
+            throw new BusinessException(ResultCode.UNAUTHORIZED, "令牌无效");
+        }
+        return rawToken;
+    }
+
     private SecretKey secretKey() {
         return Keys.hmacShaKeyFor(jwtProperties.secret().getBytes(StandardCharsets.UTF_8));
     }

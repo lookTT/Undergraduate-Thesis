@@ -1,7 +1,6 @@
 package com.community.volunteer.controller.volunteer;
 
 import com.community.volunteer.common.ApiResponse;
-import com.community.volunteer.dto.common.PageRequest;
 import com.community.volunteer.dto.volunteer.VolunteerSaveRequest;
 import com.community.volunteer.service.VolunteerProfileService;
 import com.community.volunteer.vo.common.PageVO;
@@ -12,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -27,8 +27,9 @@ public class VolunteerController {
     }
 
     @GetMapping
-    public ApiResponse<PageVO<VolunteerVO>> page(PageRequest request) {
-        return ApiResponse.success(volunteerProfileService.pageVolunteer(request.pageNum(), request.pageSize()));
+    public ApiResponse<PageVO<VolunteerVO>> page(@RequestParam(defaultValue = "1") long pageNum,
+                                                 @RequestParam(defaultValue = "10") long pageSize) {
+        return ApiResponse.success(volunteerProfileService.pageVolunteer(pageNum, pageSize));
     }
 
     @GetMapping("/{id}")

@@ -4,6 +4,7 @@ public enum ResultCode {
 
     SUCCESS(0, "ok"),
     BAD_REQUEST(400, "参数错误"),
+    CONFLICT(409, "数据冲突"),
     UNAUTHORIZED(401, "未登录或登录已过期"),
     FORBIDDEN(403, "无权限访问"),
     NOT_FOUND(404, "资源不存在"),

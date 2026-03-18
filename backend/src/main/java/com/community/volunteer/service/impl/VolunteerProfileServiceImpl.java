@@ -10,9 +10,9 @@ import com.community.volunteer.mapper.VolunteerProfileMapper;
 import com.community.volunteer.service.VolunteerProfileService;
 import com.community.volunteer.vo.common.PageVO;
 import com.community.volunteer.vo.volunteer.VolunteerVO;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.StringUtils;
 
 @Service
 public class VolunteerProfileServiceImpl extends ServiceImpl<VolunteerProfileMapper, VolunteerProfile> implements VolunteerProfileService {
@@ -35,6 +35,17 @@ public class VolunteerProfileServiceImpl extends ServiceImpl<VolunteerProfileMap
             throw new BusinessException(ResultCode.NOT_FOUND, "志愿者档案不存在");
         }
         return toVO(profile);
+    }
+
+    @Override
+    public Long findVolunteerIdByUserId(Long userId) {
+        VolunteerProfile profile = this.getOne(Wrappers.<VolunteerProfile>lambdaQuery()
+                .eq(VolunteerProfile::getUserId, userId)
+                .last("limit 1"));
+        if (profile == null) {
+            throw new BusinessException(ResultCode.NOT_FOUND, "志愿者档案不存在");
+        }
+        return profile.getId();
     }
 
     @Override

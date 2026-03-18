@@ -2,7 +2,7 @@ package com.community.volunteer.controller.activity;
 
 import com.community.volunteer.common.ApiResponse;
 import com.community.volunteer.dto.activity.ActivitySaveRequest;
-import com.community.volunteer.dto.common.PageRequest;
+import com.community.volunteer.service.AuthService;
 import com.community.volunteer.service.ActivityService;
 import com.community.volunteer.vo.activity.ActivityVO;
 import com.community.volunteer.vo.common.PageVO;
@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -23,14 +24,17 @@ import org.springframework.web.bind.annotation.RestController;
 public class ActivityController {
 
     private final ActivityService activityService;
+    private final AuthService authService;
 
-    public ActivityController(ActivityService activityService) {
+    public ActivityController(ActivityService activityService, AuthService authService) {
         this.activityService = activityService;
+        this.authService = authService;
     }
 
     @GetMapping
-    public ApiResponse<PageVO<ActivityVO>> page(PageRequest request) {
-        return ApiResponse.success(activityService.pageActivity(request.pageNum(), request.pageSize()));
+    public ApiResponse<PageVO<ActivityVO>> page(@RequestParam(defaultValue = "1") long pageNum,
+                                                @RequestParam(defaultValue = "10") long pageSize) {
+        return ApiResponse.success(activityService.pageActivity(pageNum, pageSize));
     }
 
     @GetMapping("/{id}")
@@ -41,7 +45,7 @@ public class ActivityController {
     @PostMapping
     public ApiResponse<Void> create(@Valid @RequestBody ActivitySaveRequest request,
                                     @RequestHeader(value = HttpHeaders.AUTHORIZATION, required = false) String authorization) {
-        Long creatorId = 1L;
+        Long creatorId = authService.currentUser(authorization).id();
         activityService.saveActivity(request, creatorId);
         return ApiResponse.success(null);
     }

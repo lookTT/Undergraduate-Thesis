@@ -81,15 +81,7 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public UserVO currentUser(String token) {
-        if (!StringUtils.hasText(token)) {
-            throw new BusinessException(ResultCode.UNAUTHORIZED, "未携带令牌");
-        }
-        String rawToken = token.replaceFirst("(?i)^Bearer\\s+", "").trim();
-        if (!StringUtils.hasText(rawToken)) {
-            throw new BusinessException(ResultCode.UNAUTHORIZED, "令牌无效");
-        }
-
-        Long userId = jwtTokenService.parseToken(rawToken).get("userId", Number.class).longValue();
+        Long userId = jwtTokenService.getUserId(token);
         User user = userMapper.selectById(userId);
         if (user == null) {
             throw new BusinessException(ResultCode.NOT_FOUND, "用户不存在");
